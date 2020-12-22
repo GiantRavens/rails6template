@@ -2,11 +2,7 @@
 <html>
   <head>
     <title>
-      <% if content_for?(:page_title) %><%= appname %>
-        |
-        <%= yield(:page_title) %>
-      <% else %><%= appname %>
-      <% end %>
+      <% if content_for?(:page_title) %><%= appname %> | <%= yield(:page_title) %><% else %><%= appname %><% end %>
     </title>
     <% if content_for?(:page_description) %><meta name="description" content="<%= yield(:page_description) %>"/><% end %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,10 +14,10 @@
   </head>
 
   <nav>
-    <a href="<%= root_path %>">home</a> |
-        <a href="<%= about_path %>">about</a> |
-        <% if user_signed_in? %><%= link_to 'welcome', welcome_path %> |<% end %>
-        <% if user_signed_in? %><%= link_to 'edit your account', edit_user_registration_path %> | <%= link_to 'sign out', destroy_user_session_path, method: 'delete' %><% else %><%= link_to 'sign up', new_user_registration_path %> | <%= link_to 'sign in', new_user_session_path %><% end %>
+    <b><%= link_to appname, root_path %></b> |
+    <a href="<%= about_path %>">about</a> |
+    <% if user_signed_in? %><%= link_to 'welcome', welcome_path %> |<% end %>
+    <% if user_signed_in? %><%= link_to 'edit your account', edit_user_registration_path %> | <%= link_to 'sign out', destroy_user_session_path, method: 'delete' %><% else %><%= link_to 'sign up', new_user_registration_path %> | <%= link_to 'sign in', new_user_session_path %><% end %>
   </nav>
 
   <body>

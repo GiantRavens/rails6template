@@ -122,8 +122,3 @@ localhost:1080
 localhost:3000/users/sign_up
 
 rails g devise:views
-
-
-TODO:
-- redirect
-- add firstname lastname with security to user form and signup form
