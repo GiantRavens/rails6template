@@ -286,3 +286,21 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+__Generate a Rails Admin backend__
+```ruby
+rails g rails_admin:install
+```
+Add an admin flag to one of your users:
+```ruby
+rails c
+User.all
+u = User.second
+u.isdamin = 'true'
+u.save
+```
+
+Now can test it at /admin for one of your users.
+
+TODO: show how must be logged in to use /admin
+TODO: show how the nav bar changes based on user signed in or not
+DODO: add TailwindCSS
