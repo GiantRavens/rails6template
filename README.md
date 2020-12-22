@@ -80,6 +80,29 @@ rails s
 
 Then at localhost:3000/posts create a few posts and see that on show, they are full UUID's instead of /post/1
 
+
+__Add an appname and helper__
+
+```ruby
+config/application.rb
+-----------------------
+# Application Name Definition - called with Rails.application.appname or via Pages Helper Method
+def appname
+  @appname = "Rails Template Application Name"
+end
+```
+
+```ruby
+# helpers/pages_helper.rb
+# Pull the application name set in config/application.rb
+# Call with appname in page layouts like <%= appname %>
+def appname
+  @appname = Rails.application.appname
+end
+```
+
+Restart the server - add <%= appname %> to app/views/pages/index.html.erb and reload to see if the appname helper is working.
+
 __Generate App Pages__
 
 Generate app pages that we'll filter, show, redirect to once we have authentication set up.
@@ -98,6 +121,22 @@ match '/welcome', to: 'pages#welcome', via: 'get'
 resources :posts
 # fall through to root
 root 'pages#index'
+```
+
+__Improve page layout and dynamic title and description meta tags__
+
+Application Layout at app/views/layouts/application.html.erb:
+
+```ruby
+    <title><% if content_for?(:page_title) %><%= appname %> | <%= yield(:page_title) %><% else %><%= appname %><% end %></title>
+    <% if content_for?(:page_description) %><meta name="description" content="<%= yield(:page_description) %>"/><% end %>
+```
+
+Then in individual pages add title and descriptions like:
+
+```ruby
+<%= content_for :page_title, 'Home Page' %>
+<%= content_for :page_description, 'Home Page' %>
 ```
 
 __Prepare your user resource__
