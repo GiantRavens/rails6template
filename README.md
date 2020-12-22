@@ -1,38 +1,94 @@
-devlog
-======
+Rails 6 Template
+================
 
-rails new rails6_template --database=postgresql
+Clone the repo - or follow along as we rebuild the Rails 5 template atomically.
 
-Gemfile:
+__Install local gems__
+
+Install mailcatcher with:
+
+`gem install mailcatcher`
+
+You can start it with just `mailcatcher` - it runs a local webserver at localhost:1080 and catches SMTP locally at :1025
+
+Make sure that you can build the pg gem properly:
+
+`gem install pg`
+
+If not, install the Postgres headers. On a Mac the fastest way to do this is install Postgres itself:
+
+`brew install postgres`
+
+For running Postgres locally on a Mac try the Postgres.app
+
+__Start your app and test that Rails is running properly__
+
+Create your new rails project and specify PostgreSQL as your database:
+
+`rails new rails6_template --database=postgresql`
+
+Add these gems:
+
+```ruby
+# Gemfile.rb
 gem 'devise'
+gem 'rails_admin'
+```
 
+Set up databases:
+
+```ruby
+bundle install
 rails db:migrate
 rails db:setup
-
 rails s
-rails g migration EnableUUID
+```
+
+If you're greeted with 'Yay' then basic smokecheck is done - rails is installed.
+
+__Configure UUID__
+
+Generate a migration to capture the Postgres change to generate full uuids instead of simple ones:
+
+`rails g migration EnableUUID`
 
 migration file:
+```ruby
 class EnableUuid < ActiveRecord::Migration[6.1]
   def change
     enable_extension 'pgcrypto'
   end
 end
+```
 
-config/initializers/generators.rb:
+Set UUID as default behavior:
+
+```ruby
+# config/initializers/generators.rb:
 Rails.application.config.generators do |g|
   g.orm :active_record, primary_key_type: :uuid
 end
+```
 
+Test that UUID is working with a dummy resource:
+
+```ruby
 rails g scaffold post title:string body:text published:boolean
 rails db:migrate
 rails s
-localhost:3000/posts
-confirm created posts use UUID instead of ID
+```
 
-rails g controller pages index welcome about
+Then at localhost:3000/posts create a few posts and see that on show, they are full UUID's instead of /post/1
 
-routes.rb:
+__Generate App Pages__
+
+Generate app pages that we'll filter, show, redirect to once we have authentication set up.
+
+`rails g controller pages index welcome about`
+
+Then so that they display from root instead of pages/<pagename> edit routes.rb:
+
+```ruby
 # match on /page instead of the technically correct /pages/page
 # get 'pages/welcome'
 # get 'pages/about'
@@ -42,35 +98,43 @@ match '/welcome', to: 'pages#welcome', via: 'get'
 resources :posts
 # fall through to root
 root 'pages#index'
+```
 
-Gemfile:
-gem 'devise'
+__Prepare your user resource__
 
+Before installing Devise, which will hook into user - we'll first add some fields for first and last name, and a simple boolean to check if the user is an admin or not that will be useful when adding an admin backend to the app later.
 
+`rails g model user firstname:string lastname:string isadmin:boolean`
 
-rails g model user firstname:string lastname:string isadmin:boolean
+__Install devise__
 
+`rails g devise:install`
 
+Adjust config/environments/development.rb for devise and mailcatcher:
 
-
-
-bundle install
-rails g devise:install
-
-config/environments/development.rb:
+```ruby
 # devise install wants a default url
 config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 config.action_mailer.delivery_method = :smtp
 # mailcatcher gem
 config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
+```
 
-views/layouts/application.html.erb:
+Add alerts in our main layout in views/layouts/application.html.erb:
+
+```html
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
+```
 
-rails g devise User
+And now install devise for our user resource:
 
-app/models/user.rb:
+`rails g devise User`
+
+Now time to configure our user model with the devise modules we want:
+
+```ruby
+#app/models/user.rb:
 devise :database_authenticatable, :registerable, :confirmable,
        :recoverable, :validatable, :timeoutable, :trackable
 
@@ -115,10 +179,70 @@ devise :database_authenticatable, :registerable, :confirmable,
            add_index :users, :unlock_token,         unique: true
          end
        end
+```
 
+Test it all:
+
+```ruby
 rails db:migrate
+rails s
 mailcatcher
 localhost:1080
 localhost:3000/users/sign_up
+```
 
-rails g devise:views
+Now configure cleaner auth routes like /signup /signout instead of user/signup:
+
+```ruby
+#routes.rb
+# change default /user/action URLs for devise
+devise_for :users, path: '', path_names: { sign_in: 'signin', sign_out: 'signout', password: 'iforgot', confirmation: 'verification', unlock: 'unlock', registration: '', sign_up: 'signup' }
+```
+
+Add your custom fields to the signup and edit forms:
+
+`rails g devise:views`
+
+```html
+# views/devise/registrations/edit and new
+<div class="field">
+  <%= f.label "First Name" %><br />
+  <%= f.text_field :firstname, autofocus: true, autocomplete: "first name" %>
+</div>
+
+<div class="field">
+  <%= f.label "Last Name" %><br/>
+  <%= f.text_field :lastname, autocomplete: "first name" %>
+</div>
+```
+
+Adjust permitted parameters in application_controller.rb, and change post-signin and signout redirects (only a signed in user should see the welcome page):
+
+```ruby
+class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  # override the devise signin and signout url behavior
+  def after_sign_in_path_for(_resource_or_scope)
+    welcome_url
+  end
+
+  def after_sign_out_path_for(_resource_or_scope)
+    root_url
+  end
+
+  protected
+
+  # Allow extra attributes for user signup and user profile edit
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up) do |u|
+      u.permit(:firstname, :lastname, :email, :password, :current_password, :isadmin)
+    end
+
+    devise_parameter_sanitizer.permit(:account_update) do |u|
+      u.permit(:firstname, :lastname, :email, :password, :password_confirmation,
+               :current_password, :isadmin)
+    end
+  end
+end
+```
