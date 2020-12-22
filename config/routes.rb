@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # change default /user/action URLs for devise
   devise_for :users, path: '', path_names: { sign_in: 'signin', sign_out: 'signout', password: 'iforgot', confirmation: 'verification', unlock: 'unlock', registration: '', sign_up: 'signup' }
 
