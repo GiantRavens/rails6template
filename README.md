@@ -1,7 +1,8 @@
 Rails 6 Template
 ================
 
-Clone the repo - or follow along as we rebuild the Rails 5 template atomically.
+Clone the repo, run `bundle install` and `yarn` - or follow along as we rebuild the Rails 5 template atomically.
+
 
 __Install local gems__
 
