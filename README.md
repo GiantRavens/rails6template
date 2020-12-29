@@ -145,6 +145,8 @@ Before installing Devise, which will hook into user - we'll first add some field
 
 `rails g model user firstname:string lastname:string isadmin:boolean`
 
+Note the re-ordered migration to remove the created_at and updated_at columns on user so that the devise install migration works.
+
 __Install devise__
 
 `rails g devise:install`
@@ -298,6 +300,8 @@ u = User.second
 u.isdamin = 'true'
 u.save
 ```
+
+When a user with admin privs logs in, a new __admin__ link appears in the navbar and allows access to the admin backend.
 
 __Install and configure TailwindCSS 2__
 
