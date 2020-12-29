@@ -1,8 +1,7 @@
 Rails 6 Template
 ================
 
-Clone the repo, run `bundle install` and `yarn` - or follow along as we rebuild the Rails 5 template atomically.
-
+Clone the repo, run `bundle install` and `yarn` - or follow along as we build the template atomically.
 
 __Install local gems__
 
@@ -300,8 +299,19 @@ u.isdamin = 'true'
 u.save
 ```
 
-Now can test it at /admin for one of your users.
+__Install and configure TailwindCSS 2__
 
-TODO: show how must be logged in to use /admin
-TODO: show how the nav bar changes based on user signed in or not
-DODO: add TailwindCSS
+```bash
+rails db:environment:set RAILS_ENV=development
+npm update
+bundle update
+bundle install
+yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9\n
+npx tailwindcss init
+./node_modules/.bin/tailwind build ./app/javascript/stylesheets/application.scss -o
+mkdir ./app/javascript/stylesheets
+mv ./tailwind.config.js ./app/javascript/stylesheets
+rm package-lock.json
+yarn update
+yarn
+```

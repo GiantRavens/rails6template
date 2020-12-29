@@ -144,7 +144,7 @@ GEM
     puma (5.1.1)
       nio4r (~> 2.0)
     rack (2.2.3)
-    rack-mini-profiler (2.2.0)
+    rack-mini-profiler (2.3.0)
       rack (>= 1.2.0)
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
@@ -256,6 +256,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-18
+  x86_64-darwin-20
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
@@ -279,7 +280,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 2.7.2p137
+   ruby 3.0.0p0
 
 BUNDLED WITH
-   2.2.1
+   2.2.3

@@ -49,10 +49,10 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.1]
   end
 end
 
-this shit did not work until I dropped the created_at and updated_at columns in psql then it worked
-
-rails db:migrate
-
-rails s
-
-localhost:3000/users/sign_up/
+# this shit did not work until I dropped the created_at and updated_at columns in psql then it worked
+#
+# rails db:migrate
+#
+# rails s
+#
+# localhost:3000/users/sign_up/
