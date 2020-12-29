@@ -306,7 +306,8 @@ rails db:environment:set RAILS_ENV=development
 npm update
 bundle update
 bundle install
-yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9\n
+yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7  autoprefixer@^9 css-loader mini-css-extract-plugin css-minimizer-webpack-plugin
+
 npx tailwindcss init
 ./node_modules/.bin/tailwind build ./app/javascript/stylesheets/application.scss -o
 mkdir ./app/javascript/stylesheets
