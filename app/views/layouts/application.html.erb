@@ -11,27 +11,26 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
-  <body class="font-sans font-normal leading-normal text-gray-800 bg-white altialiased">
+  <body class="font-sans font-normal leading-normal text-truegray-800 bg-truegray-100 antialiased">
     <header class="sticky top-0 w-full mb-4">
-      <nav class="flex flex-wrap items-center justify-between p-4 bg-gray-400">
+      <nav class="flex flex-wrap items-center justify-between p-4 bg-cyan-800">
         <div class="lg:order-1 w-auto lg:w-1/5 lg:text-center">
-          <%= link_to appname, root_path, class: "text-xl text-indigo-600 font-semibold font-heading" %>
+          <%= link_to appname, root_path, class: "text-xl font-semibold font-heading text-gray-300 hover:text-gray-400" %>
         </div>
         <div class="block lg:hidden">
-          <button class="navbar-burger flex items-right py-2 px-3 rounded border"><svg class="fill-current h-3 w-3" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></button>
+          <button class="navbar-burger flex items-right py-2 px-3 rounded border text-gray-300 hover:text-gray-400"><svg class="fill-current h-3 w-3" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></button>
         </div>
         <div class="navbar-menu hidden lg:order-1 lg:block w-full lg:w-2/5">
-          <% if user_signed_in? %><%= link_to 'welcome', welcome_path, class: "block lg:inline-block mt-4 lg:mt-0 mr-10 text-blue-900" %><% end %>
-          <%= link_to "about", about_path, class: "block lg:inline-block mt-4 lg:mt-0 mr-10 text-blue-900" %>
+          <% if user_signed_in? %><%= link_to 'welcome', welcome_path, class: "block lg:inline-block mt-4 lg:mt-0 mr-10 text-gray-300 hover:text-gray-400" %><% end %>
+          <%= link_to "about", about_path, class: "block lg:inline-block mt-4 lg:mt-0 mr-10 text-gray-300 hover:text-gray-400" %>
         </div>
         <div class="navbar-menu hidden lg:order-3 lg:block w-full lg:w-2/5 lg:text-right">
           <% if user_signed_in? %>
-            <%= link_to 'edit profile', edit_user_registration_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %>
-            <% if user_signed_in? && current_user.isadmin? %><%= link_to 'admin', rails_admin_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %><% end %>
-            <%= link_to 'sign out', destroy_user_session_path, method: 'delete', class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %><% else %>
-            <%= link_to 'sign up', new_user_registration_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %>
-            <%= link_to 'sign in', new_user_session_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %>
+            <%= link_to 'edit profile', edit_user_registration_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %>
+            <% if user_signed_in? && current_user.isadmin? %><%= link_to 'admin', rails_admin_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %><% end %>
+            <%= link_to 'sign out', destroy_user_session_path, method: 'delete', class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %><% else %>
+            <%= link_to 'sign up', new_user_registration_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %>
+            <%= link_to 'sign in', new_user_session_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %>
           <% end %>
         </div>
       </nav>
@@ -40,49 +39,33 @@
       <main class="px-4 lg:px-10">
         <% flash.each do |type, message| %>
           <% if type == "alert" %>
-            <div class="bg-red-500">
+            <div class="bg-red-500 rounded">
               <div class="container px-2 py-4 mx-auto font-sans font-medium text-center text-white"><%= message %></div>
             </div>
           <% end %>
           <% if type == "notice" %>
-            <div class="bg-green-500">
+            <div class="bg-green-500 rounded">
               <div class="container px-2 py-4 mx-auto font-sans font-medium text-center text-white"><%= message %></div>
             </div>
           <% end %>
         <% end %>
         <%= yield %>
       </main>
-      <footer class="flex flex-wrap items-center justify-between mt-6 p-4">
-        <div class="w-full lg:w-auto lg:mr-6 mb-4 lg:mb-0 text-center">&copy; 2020 <%= appname %></div>
-        <div class="flex flex-col lg:flex-row items-center w-full lg:w-auto">
-          <div class="mx-auto lg:mx-0 lg:ml-auto">
-
-
-            <% if user_signed_in? %><%= link_to 'welcome', welcome_path, class: "block lg:inline-block mt-4 lg:mt-0 mr-10 text-blue-900" %><% end %>
-            <%= link_to "about", about_path, class: "block lg:inline-block mt-4 lg:mt-0 mr-10 text-blue-900" %>
-            <% if user_signed_in? %>
-              <%= link_to 'edit profile', edit_user_registration_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %>
-              <% if user_signed_in? && current_user.isadmin? %><%= link_to 'admin', rails_admin_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %><% end %>
-              <%= link_to 'sign out', destroy_user_session_path, method: 'delete', class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %><% else %>
-              <%= link_to 'sign up', new_user_registration_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %>
-              <%= link_to 'sign in', new_user_session_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-blue-900" %>
-            <% end %>
-
-          </div>
-          <div class="flex justify-center space-x-6 mt-4 lg:mt-0 lg:ml-8">
-            <a href="#">
-              <svg class="text-indigo-600 w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-            </a>
-            <a href="#">
-              <svg class="text-indigo-600 w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
+    <footer class="flex flex-wrap items-center justify-between mt-6 p-4 bg-gray-400 text-white">
+      <div class="flex m-auto justify-center space-x-6 mt-3 mb-2">
+        &copy; 2020 <%= appname %>
+        <a href="#" class="ml-4">
+          <svg class="text-cyan-600 w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+        </a>
+        <a href="#">
+          <svg class="text-cyan-600 w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+          </svg>
+        </a>
+      </div>
+    </footer>
   </body>
 </html>

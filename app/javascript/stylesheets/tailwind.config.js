@@ -1,31 +1,21 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+// tailwind.config.js
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  darkMode: 'media', // or 'media' or 'class'
   theme: {
-    screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
-    },
     colors: {
-      gray: colors.trueGray,
-      indigo: colors.indigo,
-      red: colors.rose,
-      yellow: colors.amber
+      blue: colors.blue,
+      currentcolor: 'currentColor',
+      cyan: colors.cyan,
+      green: colors.green,
+      red: colors.red,
+      cyan: colors.cyan,
+      transparent: 'transparent',
+      truegray: colors.trueGray,
+      warmgray: colors.warmGray,
+      gray: colors.gray
     },
-    extend: {},
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
-  purge: [
-    "./app/views/**/*.html.erb",
-    "./app/helpers/**/*.rb",
-    "./app/javascript/**/*.js",
-    "./app/javascript/**/*.vue"
-  ]
+  corePlugins: {},
+  plugins: [require('@tailwindcss/forms')],
 }
