@@ -14,7 +14,6 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-
 // dropdown menu for navbar
 document.addEventListener('DOMContentLoaded', function() {
   const menus = document.querySelectorAll('.navbar-burger');
