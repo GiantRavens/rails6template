@@ -21,16 +21,16 @@
           <button class="navbar-burger flex items-right py-2 px-3 rounded border text-gray-300 hover:text-gray-400"><svg class="fill-current h-3 w-3" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></button>
         </div>
         <div class="navbar-menu hidden lg:order-1 lg:block w-full lg:w-2/5">
-          <% if user_signed_in? %><%= link_to 'welcome', welcome_path, class: "block lg:inline-block mt-4 lg:mt-0 mr-10 text-gray-300 hover:text-gray-400" %><% end %>
-          <%= link_to "about", about_path, class: "block lg:inline-block mt-4 lg:mt-0 mr-10 text-gray-300 hover:text-gray-400" %>
+          <% if user_signed_in? %><%= link_to 'welcome', welcome_path, class: "block lg:inline-block px-2 mt-4 lg:mt-0 mr-10 text-gray-300 hover:text-gray-400 hover:bg-gray-200" %><% end %>
+          <%= link_to "about", about_path, class: "block lg:inline-block px-2 mt-4 lg:mt-0 mr-10 text-gray-300 hover:text-gray-400 hover:bg-gray-200" %>
         </div>
         <div class="navbar-menu hidden lg:order-3 lg:block w-full lg:w-2/5 lg:text-right">
           <% if user_signed_in? %>
-            <%= link_to 'edit profile', edit_user_registration_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %>
-            <% if user_signed_in? && current_user.isadmin? %><%= link_to 'admin', rails_admin_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %><% end %>
-            <%= link_to 'sign out', destroy_user_session_path, method: 'delete', class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %><% else %>
-            <%= link_to 'sign up', new_user_registration_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %>
-            <%= link_to 'sign in', new_user_session_path, class: "block lg:inline-block lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400" %>
+            <%= link_to 'edit profile', edit_user_registration_path, class: "block lg:inline-block px-2 lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400 hover:bg-gray-200" %>
+            <% if user_signed_in? && current_user.isadmin? %><%= link_to 'admin', rails_admin_path, class: "block lg:inline-block px-2 lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400 hover:bg-gray-200" %><% end %>
+            <%= link_to 'sign out', destroy_user_session_path, method: 'delete', class: "block lg:inline-block px-2 lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400 hover:bg-gray-200" %><% else %>
+            <%= link_to 'sign up', new_user_registration_path, class: "block lg:inline-block px-2 lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400 hover:bg-gray-200" %>
+            <%= link_to 'sign in', new_user_session_path, class: "block lg:inline-block px-2 lg:mt-0 mt-4 mr-10 text-gray-300 hover:text-gray-400 hover:bg-gray-200" %>
           <% end %>
         </div>
       </nav>
@@ -54,7 +54,7 @@
 
     </div>
     <footer class="flex flex-wrap items-center justify-between mt-6 p-4 bg-gray-400">
-      <div class="flex m-auto justify-center space-x-6 mt-3 mb-2">
+      <div class="flex m-auto justify-center space-x-6 mt-1 mb-1">
         <span class="text-gray-200">&copy; 2020 <%= appname %></span>
         <a href="#" class="ml-4">
           <svg class="text-cyan-600 w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
