@@ -320,3 +320,45 @@ rm package-lock.json
 yarn update
 yarn
 ```
+
+__Get guard and webpacker to work together__
+
+Webpacker works fine for .js and .css under the JS directory - but not for erb or html - so it's back to guard and live-reload:
+
+```ruby
+gem install guard guard-livereload
+bundle install
+guard init livereload
+```
+
+```ruby
+# development.rb
+# Add Rack::LiveReload to the bottom of the middleware stack with the default options:
+config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
+
+# or, if you're using better_errors:
+# config.middleware.insert_before Rack::Lock, Rack::LiveReload
+```
+
+To run both webpacker and guard with the dev server:
+
+```shell
+bundle exec guard
+./bin/webpack-dev-server --content-base=www --inline --watch --hot
+rails s
+```
+
+You can run these automatically at once with overmind:
+
+brew install overmind
+
+#procfile.dev
+web: rails server
+webpacker:  ./bin/webpack-dev-server --content-base=www --inline --watch --hot
+guard: bundle exec guard
+
+#.env
+OVERMIND_PROCFILE=procfile.dev
+
+overmind start
+localhost:5000

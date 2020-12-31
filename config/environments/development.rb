@@ -11,6 +11,13 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  # Add Rack::LiveReload to the bottom of the middleware stack with the default options:
+  config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
+
+  # or, if you're using better_errors:
+  # config.middleware.insert_before Rack::Lock, Rack::LiveReload
+
+
   # Show full error reports.
   config.consider_all_requests_local = true
 

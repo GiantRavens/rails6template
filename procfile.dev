@@ -1,0 +1,3 @@
+web: rails server
+webpacker:  ./bin/webpack-dev-server --content-base=www --inline --watch --hot
+guard: bundle exec guard
