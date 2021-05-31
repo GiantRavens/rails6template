@@ -1,11 +1,13 @@
 Rails 6 Template
 ================
 
+Now updated for Ruby v3.0.1 and Rails 6.1.3.2
 
-
-Clone the repo, run `bundle install` and `yarn` - or follow along as we build the template atomically.
+In case you need to install pre-requisites:
 
 `brew install node yarn`
+
+Clone the repo, run `bundle install` and `yarn` - or follow along as we build the template atomically.
 
 __Install local gems__
 
