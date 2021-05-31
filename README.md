@@ -5,9 +5,9 @@ Clone the repo, run `bundle install` and `yarn` - or follow along as we build th
 
 __Install local gems__
 
-Install mailcatcher with:
+Install mailcatcher to avoid the L99 bug with:
 
-`gem install openssl mailcatcher`
+`gem install mailcatcher -- --with-cflags="-Wno-error=implicit-function-declaration"`
 
 You can start it with just `mailcatcher` - it runs a local webserver at localhost:1080 and catches SMTP locally at :1025
 
