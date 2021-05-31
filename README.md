@@ -1,7 +1,11 @@
 Rails 6 Template
 ================
 
+
+
 Clone the repo, run `bundle install` and `yarn` - or follow along as we build the template atomically.
+
+`brew install node yarn`
 
 __Install local gems__
 
