@@ -7,7 +7,7 @@ __Install local gems__
 
 Install mailcatcher with:
 
-`gem install mailcatcher`
+`gem install openssl mailcatcher`
 
 You can start it with just `mailcatcher` - it runs a local webserver at localhost:1080 and catches SMTP locally at :1025
 
